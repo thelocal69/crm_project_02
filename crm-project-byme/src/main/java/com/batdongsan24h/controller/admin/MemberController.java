@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.batdongsan24h.constant.SystemConstant;
 import com.batdongsan24h.model.UserModel;
+import com.batdongsan24h.service.impl.IJobService;
 import com.batdongsan24h.service.impl.IRoleService;
 import com.batdongsan24h.service.impl.IUserService;
 import com.batdongsan24h.utils.FormUtil;
@@ -25,6 +26,9 @@ public class MemberController extends HttpServlet{
 	
 	@Inject
 	private IUserService userService;
+	
+	@Inject
+	private IJobService jobService;
 
 	private static final long serialVersionUID = 1L;
 	
@@ -34,11 +38,21 @@ public class MemberController extends HttpServlet{
 		String view = "";
 		UserModel model = FormUtil.toModel(UserModel.class, req);
 		if (model.getType().equals(SystemConstant.ADDNEW)) {
+			if (model.getId() != null) {
+				model = userService.findOne(model.getId());
+			}
 			req.setAttribute("roles", roleService.findAll());
 			view = "views/admin/member/user-add.jsp";
 		}else if (model.getType().equals(SystemConstant.LIST)) {
 			req.setAttribute("listUser", userService.findAll());
 			view = "views/admin/member/user-table.jsp";
+		}else if (model.getType().equals(SystemConstant.DETAIL)) {
+			req.setAttribute("listJob", jobService.findAll());
+			req.setAttribute("users", userService.findOne(model.getId()));
+			view = "views/admin/member/user-detail.jsp";
+		}else if (model.getType().equals(SystemConstant.PROFILE)) {
+			req.setAttribute("listJob", jobService.findAll());
+			view = "views/admin/member/profile/profile-table.jsp";
 		}
 		MessageUtil.showMessage(req);
 		req.setAttribute(SystemConstant.MODEL, model);

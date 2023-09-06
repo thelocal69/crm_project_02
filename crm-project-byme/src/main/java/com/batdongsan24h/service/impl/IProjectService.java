@@ -9,5 +9,7 @@ public interface IProjectService {
 	List<ProjectModel> findAll();
 	ProjectModel save(ProjectModel projectModel);
 	ProjectModel update(ProjectModel projectModel);
-	Void delete(Integer[] ids);
+	void deleteAll(Integer[] ids);
+	void deleteById(Integer id);
+	ProjectModel findOne(Integer id);
 }

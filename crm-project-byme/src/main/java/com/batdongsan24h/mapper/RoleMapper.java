@@ -13,7 +13,7 @@ public class RoleMapper implements RowMapper<RoleModel>{
 		try {
 			RoleModel roleModel = new RoleModel();
 			roleModel.setId(rs.getInt("id"));
-			roleModel.setName(rs.getString("name"));
+			roleModel.setName(rs.getString("rolename"));
 			roleModel.setDescription(rs.getString("description"));
 			roleModel.setCreatedBy(rs.getString("createdby"));
 			roleModel.setCreatedDate(rs.getTimestamp("createddate"));

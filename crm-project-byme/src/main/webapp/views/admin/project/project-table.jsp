@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include  file="/common/lib/taglib.jsp"%>
+<c:url var="URlproject" value="/admin-project" />
+<c:url var="APIproject" value="/api-admin-project" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +29,11 @@
                 <!-- /row -->
                 <div class="row">
                     <div class="col-sm-12">
+                    <c:if test="${not empty messageResponse}">
+							<div class="alert alert-${alert}">
+								<strong>${messageResponse}</strong>
+							</div>
+						</c:if>
                         <div class="white-box">
                             <div class="table-responsive">
                                 <table class="table" id="example">
@@ -40,17 +47,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Phân tích dự án</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
+                                    <c:forEach items="${listProject}" var="item" varStatus="loop">
+                                    	<tr>
+                                            <td>${loop.count}</td>
+                                            <td>${item.projectName}</td>
+                                            <td>${item.startedDate}</td>
+                                            <td>${item.endedDate}</td>
                                             <td>
-                                                <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                                <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                                <a href="groupwork-details.html" class="btn btn-sm btn-info">Xem</a>
+                                            	<c:url var="editAPI" value="/admin-project">
+                                            		<c:param name="type" value="addnew" />
+                                            		<c:param name="id" value="${item.id}" />
+                                            	</c:url>
+                                            	<c:url var="detailURL" value="/admin-job">
+                                            	<c:param name="type" value="detail" />
+                                            	<c:param name="id" value="${item.id}" />
+                                            </c:url>
+                                                <a href="${editAPI}" class="btn btn-sm btn-primary">Sửa</a>
+                                                <button class="btn btn-sm btn-danger btnDelete" project-id="${item.id}">xoa</button>
+                                                <a href="${detailURL}" class="btn btn-sm btn-info">Xem</a>
                                             </td>
-                                        </tr>
+                                        </tr> 
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -63,5 +80,30 @@
         </div>
         <!-- /#page-wrapper -->
     </div>
+    <script type="text/javascript">
+    $(".btnDelete").click(function(){
+		var choice = confirm("Bạn chắc chắn muốn xóa ?");
+		var data = {};
+		if (choice) {
+		var id = $(this).attr('project-id');
+		data['id'] = id;
+		deleteProject(data);
+		}
+		function deleteProject(data){
+	$.ajax({
+        url: '${APIproject}',
+        type: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function(result){
+            window.location.href = "${URlproject}?type=list&message=delete_success";
+        },
+        error: function(error){
+        	window.location.href = "${URlproject}?type=list&message=error_system";
+        },
+    });
+}
+	});
+    </script>
 </body>
 </html>

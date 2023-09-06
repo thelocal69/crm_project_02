@@ -13,8 +13,9 @@ public class ProjectMapper implements RowMapper<ProjectModel>{
 		try {
 			ProjectModel projectModel = new ProjectModel();
 			projectModel.setId(rs.getInt("id"));
-			projectModel.setName(rs.getString("name"));
-			projectModel.setStartedDate(rs.getTimestamp("starteddate"));
+			projectModel.setProjectName(rs.getString("projectname"));
+			projectModel.setStartedDate(rs.getString("starteddate"));
+			projectModel.setEndedDate(rs.getString("endeddate"));
 			projectModel.setCreatedBy(rs.getString("createdby"));
 			projectModel.setCreatedDate(rs.getTimestamp("createddate"));
 			if (projectModel.getModifiedBy() != null) {

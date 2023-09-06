@@ -1,5 +1,6 @@
 package com.batdongsan24h.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,7 +13,7 @@ public class ProjectService implements IProjectService{
 	
 	@Inject
 	private IProjectDao projectDao;
-
+	
 	@Override
 	public List<ProjectModel> findAll() {
 		return projectDao.findAll();
@@ -27,14 +28,29 @@ public class ProjectService implements IProjectService{
 
 	@Override
 	public ProjectModel update(ProjectModel projectModel) {
-		// TODO Auto-generated method stub
-		return null;
+		ProjectModel oldProject = projectDao.findOne(projectModel.getId());
+		projectModel.setCreatedBy(oldProject.getCreatedBy());
+		projectModel.setCreatedDate(oldProject.getCreatedDate());
+		projectModel.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+		this.projectDao.update(projectModel);
+		return projectModel;
 	}
 
 	@Override
-	public Void delete(Integer[] ids) {
-		// TODO Auto-generated method stub
-		return null;
+	public ProjectModel findOne(Integer id) {
+		return projectDao.findOne(id);
+	}
+
+	@Override
+	public void deleteAll(Integer[] ids) {
+		for (Integer id : ids) {
+			this.projectDao.delete(id);
+		}		
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		this.projectDao.delete(id);
 	}
 	
 }

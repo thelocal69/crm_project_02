@@ -1,36 +1,37 @@
 package com.batdongsan24h.model;
 
 import com.batdongsan24h.model.exte.AbstractModel;
-import com.google.protobuf.Timestamp;
 
 public class ProjectModel extends AbstractModel{
-	private String name;
-	private java.sql.Timestamp startedDate;
-	private Timestamp endedDate;
+	private String projectName;
+	private String startedDate;
+	private String endedDate;
 
 	
-	public String getName() {
-		return name;
+
+	public String getProjectName() {
+		return projectName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 
-	public java.sql.Timestamp getStartedDate() {
+	public String getStartedDate() {
 		return startedDate;
 	}
 
-	public void setStartedDate(java.sql.Timestamp timestamp) {
-		this.startedDate = timestamp;
+	public void setStartedDate(String startedDate) {
+		this.startedDate = startedDate;
 	}
 
-	public Timestamp getEndedDate() {
+	public String getEndedDate() {
 		return endedDate;
 	}
 
-	public void setEndedDate(Timestamp endedDate) {
+	public void setEndedDate(String endedDate) {
 		this.endedDate = endedDate;
 	}
+
 
 }

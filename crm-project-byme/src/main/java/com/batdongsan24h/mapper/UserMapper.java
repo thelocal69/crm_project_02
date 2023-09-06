@@ -25,7 +25,7 @@ public class UserMapper implements RowMapper<UserModel>{
 			userModel.setRoleId(rs.getInt("role_id"));
 			try {
 				RoleModel roleModel = new RoleModel();
-				roleModel.setName(rs.getString("name"));
+				roleModel.setName(rs.getString("rolename"));
 				roleModel.setDescription(rs.getString("description"));
 				userModel.setRoleModel(roleModel);
 			} catch (SQLException e) {

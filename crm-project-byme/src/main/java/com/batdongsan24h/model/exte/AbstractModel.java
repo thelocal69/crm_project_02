@@ -10,6 +10,7 @@ public class AbstractModel {
 	private String message;
 	private String type;
 	private Integer[] ids;
+	private String validate;
 
 	public Integer getId() {
 		return id;
@@ -82,6 +83,13 @@ public class AbstractModel {
 	public void setIds(Integer[] ids) {
 		this.ids = ids;
 	}
-	
 
+	public String getValidate() {
+		return validate;
+	}
+
+	public void setValidate(String validate) {
+		this.validate = validate;
+	}
+	
 }

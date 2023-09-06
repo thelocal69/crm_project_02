@@ -29,7 +29,6 @@
 							<label>Mật khẩu</label> <input type="password"
 								class="form-control" name="pass">
 						</div>
-						<input type="hidden" value="login" name="action" /> 
 						<button type="submit" class="btn btn-primary">Đăng nhập</button>
 					</form>
 				</div>

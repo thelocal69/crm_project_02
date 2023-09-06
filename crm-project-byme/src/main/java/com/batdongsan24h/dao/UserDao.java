@@ -12,7 +12,7 @@ public class UserDao extends AbstractDao<UserModel> implements IUserDao {
 	@Override
 	public UserModel findEmailAndPassword(String email, String pass) {
 		StringBuilder sql = new StringBuilder("SELECT * FROM user AS u");
-		// sql.append(" JOIN role r ON u.role_id = r.id");
+		sql.append(" JOIN role r ON u.role_id = r.id");
 		sql.append(" WHERE email = ? AND pass = ?");
 		List<UserModel> listUser = query(sql.toString(), new UserMapper(), email, pass);
 		return !(listUser.isEmpty()) ? listUser.get(0) : null;
@@ -45,14 +45,13 @@ public class UserDao extends AbstractDao<UserModel> implements IUserDao {
 
 	@Override
 	public void update(UserModel updateUser) {
-		StringBuilder sql = new StringBuilder("UPDATE user SET");
-		sql.append(" email = ?, pass = ?, role_id = ?, avatar = ?, firstname = ?,");
-		sql.append(" lastname = ?, username = ?, fullname = ?, phone = ?, createdby = ?");
-		sql.append(" modifiedby = ? WHERE id = ?");
-		this.update(sql.toString(), updateUser.getEmail(), updateUser.getPass(), updateUser.getRoleId(),
-				updateUser.getAvatar(), updateUser.getFirstName(), updateUser.getLastName(), updateUser.getUserName(),
-				updateUser.getFullName(), updateUser.getPhone(), updateUser.getCreatedBy(), updateUser.getModifiedBy(),
-				updateUser.getId());
+		StringBuilder sql = new StringBuilder("UPDATE user SET avatar=?, firstname=?,");
+		sql.append(" lastname=?, fullname=?, email=?, pass=?, username=?, phone=?,");
+		sql.append(" role_id=?, createdby=?, createddate=?, modifiedby=?, modifieddate=? WHERE id=?");
+		this.update(sql.toString(), updateUser.getAvatar(), updateUser.getFirstName(), updateUser.getLastName(),
+				updateUser.getFullName(), updateUser.getEmail(), updateUser.getPass(), updateUser.getUserName(),
+				updateUser.getPhone(), updateUser.getRoleId(), updateUser.getCreatedBy(), updateUser.getCreatedDate(),
+				updateUser.getModifiedBy(), updateUser.getModifiedDate(), updateUser.getId());
 	}
 
 	@Override

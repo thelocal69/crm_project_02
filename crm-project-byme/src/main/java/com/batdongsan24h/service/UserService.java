@@ -51,7 +51,7 @@ public class UserService implements IUserService{
 		updateUser.setModifiedDate(new java.sql.Timestamp(System.currentTimeMillis()));
 		RoleModel roleModel = roleDao.findOne(updateUser.getRoleId());
 		updateUser.setRoleId(roleModel.getId());
-		this.userDao.update(updateUser);
+		userDao.update(updateUser);
 		return updateUser;
 	}
 

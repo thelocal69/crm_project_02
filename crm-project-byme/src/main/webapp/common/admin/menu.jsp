@@ -16,7 +16,7 @@
 					<li><a href='<c:url value="/admin-project?type=list" />' class="waves-effect"><i
 							class="fa fa-table fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Dự án</span></a></li>
-					<li><a href="task.html" class="waves-effect"><i
+					<li><a href='<c:url value="/admin-job?type=list" />' class="waves-effect"><i
 							class="fa fa-table fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Công việc</span></a></li>
 				</ul>

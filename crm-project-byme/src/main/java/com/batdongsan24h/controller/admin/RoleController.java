@@ -29,6 +29,9 @@ public class RoleController extends HttpServlet{
 		String view = "";
 		RoleModel model = FormUtil.toModel(RoleModel.class, req);
 		if (model.getType().equals(SystemConstant.ADDNEW)) {
+			if (model.getId() != null) {
+				model = roleService.findOne(model.getId());
+			}
 			view = "/views/admin/role/role-add.jsp";
 		}else if (model.getType().equals(SystemConstant.LIST)) {
 			req.setAttribute("listRoles", roleService.findAll());

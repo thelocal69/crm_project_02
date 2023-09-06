@@ -60,7 +60,7 @@
 											<label class="col-md-12">Full Name</label>
 											<div class="col-md-12">
 												<input type="text"
-													class="form-control form-control-line" id="fullName" name="fullName" value="${model.fullName}">
+													class="form-control form-control-line" id="fullName" name="fullName" value="${model.fullName}" pattern="^[A-Z][a-zA-Z]{3,}(?: [A-Z][a-zA-Z]*){0,2}$" required>
 											</div>
 										</div>
 										<div class="form-group">
@@ -80,7 +80,7 @@
 
 										<div class="form-group">
 											<label class="col-md-12">User Name</label>
-											<div class="col-md-12">
+											<div class="col-md-12">	
 												<input type="text"
 													class="form-control form-control-line" id="userName" name="userName" value="${model.userName}">
 											</div>
@@ -99,7 +99,7 @@
 											<div class="col-sm-12">
 												<select class="form-control form-control-line" id=roleId name="roleId">
 												<c:if test="${empty model.roleId}">
-													<option>Chọn quyền</option>
+												<option>--role--</option>
 													<c:forEach items="${roles}" var="item">
 														<option value="${item.id}">${item.name}</option>
 													</c:forEach>
@@ -107,7 +107,7 @@
 												
 												<c:if test="${not empty model.roleId}">
 													<option>Chọn quyền</option>
-													<c:forEach items="roles" var="item">
+													<c:forEach items="${roles}" var="item">
 														<option value="${item.id}" <c:if test="${item.id == model.roleId}">selected="selected"</c:if>>
 															${item.name}
 														</option>
@@ -120,7 +120,7 @@
 										<div class="form-group">
 											<div class="col-sm-12">
 											<c:if test="${empty model.id}">
-												<input type="button" class="btn btn-white btn-warning btn-bold" value='<c:url value="Thêm mới thành viên" />' id="btnAddOrUpdateUser" />
+												<input type="button" class="btn btn-white btn-warning btn-bold" value="Thêm mới thành viên" id="btnAddOrUpdateUser" />
 											</c:if>
 											<c:if test="${not empty model.id}">
 												<input type="button" class="btn btn-white btn-warning btn-bold" value="Cập nhật thành viên" id="btnAddOrUpdateUser" />
@@ -143,6 +143,7 @@
 	</div>
 	
 	<script type="text/javascript">
+	
 	$('#btnAddOrUpdateUser').click(function (e) {
 		e.preventDefault;
         var data = {};
@@ -160,32 +161,32 @@
 	
 	function addUser(data){
 		$.ajax({
-            url: "http://localhost:8080/crm-project-byme/api-admin-member",
+            url: "${APIurl}",
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
             dataType: 'json',
             success: function(result){
-            	window.location.href = "${UserURL}?type=addnew&id="+result.id+"&message=insert_success";
+            	window.location.href = "${UserURL}?type=list&&message=insert_success";
             },
             error: function(error){
-            	window.location.href = "${UserURL}?type=addnew&id="+result.id+"&message=error_system";
+            	window.location.href = "${UserURL}?type=addnew&message=error_system";
             },
         });
     }
 	
 	function updateUser(data){
         $.ajax({
-            url: "http://localhost:8080/crm-project-byme/api-admin-member",
+            url: "${APIurl}",
             type: 'PUT',
             contentType: 'application/json',
             data: JSON.stringify(data),
             dataType: 'json',
             success: function(result){
-            	window.location.href = "${UserURL}?type=addnew&id="+result.id+"&message=update_success";
+            	window.location.href = "${UserURL}?type=list&id="+result.id+"&message=update_success";
             },
             error: function(error){
-            	window.location.href = "${UserURL}?type=addnew&id="+result.id+"&message=error_system";
+            	window.location.href = "${UserURL}?type=list&id="+result.id+"&message=error_system";
             },
         });
     }

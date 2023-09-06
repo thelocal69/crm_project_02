@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/lib/taglib.jsp" %>
+<c:url var="urlAPI" value="/api-admin-member" />
+<c:url var="userURL" value="/admin-member" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,31 +60,18 @@
 														<c:param name="type" value="addnew" />
 														<c:param name="id" value="${item.id}" />
 											</c:url> 
+												<c:url var="detailURL" value="/admin-member">
+														<c:param name="type" value="detail" />
+														<c:param name="id" value="${item.id}" />
+											</c:url> 
 												<a href="${editURL}" class="btn btn-sm btn-primary">Sửa</a>
-												<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal">xoa</button>
-													<!-- Modal -->
-														<div class="modal fade" id="exampleModal" tabindex="-1"
-															role="dialog" aria-labelledby="exampleModalLabel"
-															aria-hidden="true">
-															<div class="modal-dialog" role="document">
-																<div class="modal-content">
-																	<div class="modal-body text-center">Bạn chắc chắn
-																		muốn xóa ?</div>
-																	<div class="modal-footer">
-																		<button type="button" class="btn btn-primary btnDelete"
-																			id-user="${item.id}">Đồng ý</button>
-																		<button type="button" class="btn btn-secondary"
-																			data-dismiss="modal">Hủy</button>
-																	</div>
-																</div>
-															</div>
-														</div> <a href="user-details.html" class="btn btn-sm btn-info">Xem</a>
+												<button class="btn btn-sm btn-danger btnDelete" user-id="${item.id}">xóa</button>
+														<a href="${detailURL}" class="btn btn-sm btn-info">Xem</a> 
 											</td>
 										</tr>
 									</c:forEach>
 									</tbody>
 								</table>
-								<input type="hidden" value="" id="type" name="type" />
 							</div>
 						</div>
 					</div>
@@ -96,21 +85,24 @@
 	</div>
 	<script type="text/javascript">
 	$(".btnDelete").click(function(){
+		var choice = confirm("Bạn chắc chắn muốn xóa ?");
 		var data = {};
-		var id = $(this).attr('id-user');
+		if (choice) {
+		var id = $(this).attr('user-id');
 		data['id'] = id;
 		deleteNew(data);
+		}
 		function deleteNew(data){
 	$.ajax({
-        url: 'http://localhost:8080/crm-project-byme/api-admin-member',
+        url: '${urlAPI}',
         type: 'DELETE',
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: function(result){
-            window.location.href = "http://localhost:8080/crm-project-byme/admin-member?type=list&message=delete_success";
+            window.location.href = "${userURL}?type=list&message=delete_success";
         },
         error: function(error){
-        	window.location.href = "http://localhost:8080/crm-project-byme/admin-member?type=list&message=error_system";
+        	window.location.href = "${userURL}?type=list&message=error_system";
         },
     });
 }

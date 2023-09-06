@@ -8,4 +8,7 @@ public interface IRoleDao {
 	RoleModel findOneByName(String name);
 	RoleModel findOne(Integer id);
 	List<RoleModel> findAll();
+	Integer save(RoleModel saveRole);
+	void update(RoleModel updateRole);
+	void deleteById(Integer id);
 }

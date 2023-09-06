@@ -1,14 +1,18 @@
 package com.batdongsan24h.model;
 
 import com.batdongsan24h.model.exte.AbstractModel;
-import com.google.protobuf.Timestamp;
 
 public class JobModel extends AbstractModel{
 	private String name;
 	private String content;
-	private java.sql.Timestamp startedDate;
-	private Timestamp endedDate;
+	private String startedDate;
+	private String endedDate;
 	private Integer projectId;
+	private Integer userId;
+	private Integer statusId;
+	private ProjectModel projectModel = new ProjectModel();
+	private UserModel userModel = new UserModel();
+	private StatusModel statusModel = new StatusModel();
 
 	
 	public String getName() {
@@ -27,19 +31,20 @@ public class JobModel extends AbstractModel{
 		this.content = content;
 	}
 
-	public java.sql.Timestamp getStartedDate() {
+
+	public String getStartedDate() {
 		return startedDate;
 	}
 
-	public void setStartedDate(java.sql.Timestamp timestamp) {
-		this.startedDate = timestamp;
+	public void setStartedDate(String startedDate) {
+		this.startedDate = startedDate;
 	}
 
-	public Timestamp getEndedDate() {
+	public String getEndedDate() {
 		return endedDate;
 	}
 
-	public void setEndedDate(Timestamp endedDate) {
+	public void setEndedDate(String endedDate) {
 		this.endedDate = endedDate;
 	}
 
@@ -50,6 +55,45 @@ public class JobModel extends AbstractModel{
 	public void setProjectId(Integer projectId) {
 		this.projectId = projectId;
 	}
+	
+	public Integer getUserId() {
+		return userId;
+	}
 
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public Integer getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(Integer statusId) {
+		this.statusId = statusId;
+	}
+
+	public ProjectModel getProjectModel() {
+		return projectModel;
+	}
+
+	public void setProjectModel(ProjectModel projectModel) {
+		this.projectModel = projectModel;
+	}
+
+	public UserModel getUserModel() {
+		return userModel;
+	}
+
+	public void setUserModel(UserModel userModel) {
+		this.userModel = userModel;
+	}
+
+	public StatusModel getStatusModel() {
+		return statusModel;
+	}
+
+	public void setStatusModel(StatusModel statusModel) {
+		this.statusModel = statusModel;
+	}
 
 }
