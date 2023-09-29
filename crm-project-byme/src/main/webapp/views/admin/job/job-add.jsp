@@ -55,7 +55,7 @@
 								<label class="col-md-12">Tên công việc</label>
 								<div class="col-md-12">
 									<input type="text" placeholder="Tên công việc"
-										class="form-control form-control-line" name="name" value="${model.name}">
+										class="form-control form-control-line" id="name" name="name" value="${model.name}">
 								</div>
 							</div>
 							<div class="form-group">
@@ -90,14 +90,14 @@
 								<label class="col-md-12">Ngày bắt đầu</label>
 								<div class="col-md-12">
 									<input type="text" placeholder="dd/MM/yyyy"
-										class="form-control form-control-line" name="startedDate" value="${model.startedDate}">
+										class="form-control form-control-line" id="startedDate" name="startedDate" value="${model.startedDate}">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-12">Ngày kết thúc</label>
 								<div class="col-md-12">
 									<input type="text" placeholder="dd/MM/yyyy"
-										class="form-control form-control-line" name="endedDate" value="${model.endedDate}">
+										class="form-control form-control-line" id="endedDate" name="endedDate" value="${model.endedDate}">
 								</div>
 							</div>
 							<div class="form-group">
@@ -162,11 +162,38 @@
             data[""+v.name+""] = v.value;
         });
         var id = $('#id').val();
+        var projectId = $('#projectId').val();
+        var name = $('#name').val();
+        var userId = $('#userId').val();
+        var startedDate = $('#startedDate').val();
+        var endedDate = $('#endedDate').val();
+        var statusId = $('#statusId').val();
         if(id == ""){
-        	addJob(data);
+        	if(
+        			projectId === "--Chọn dự án--" ||
+        			name === "" ||
+        			userId === "--Chọn người thực hiện--" || 
+        			startedDate === "" || 
+        			endedDate === "" || 
+        			statusId === "--Chọn status--"){
+        		alert("Few data field cannot be empty !");
+            	return;
+        	}else{
+        		addJob(data);
+        	}
         }else {
-        	updateJob(data);
-        }
+        	if(projectId === "--Chọn dự án--" ||
+        			name === "" ||
+        			userId === "--Chọn người thực hiện--" || 
+        			startedDate === "" || 
+        			endedDate === "" || 
+        			statusId === "--Chọn status--"){
+        		alert("Few data field cannot be empty !");
+            	return;
+        	}else{
+        		updateJob(data);
+        	}
+        	}
 	});
 	
 	function addJob(data){

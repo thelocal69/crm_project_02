@@ -38,19 +38,19 @@
                                     <label class="col-md-12">Tên dự án</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="Tên công việc"
-                                            class="form-control form-control-line" name="projectName" value="${model.projectName}"> </div>
+                                            class="form-control form-control-line" id="projectName" name="projectName" value="${model.projectName}"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày bắt đầu</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="dd/MM/yyyy"
-                                            class="form-control form-control-line" name="startedDate" value="${model.startedDate}"> </div>
+                                            class="form-control form-control-line" id="startedDate" name="startedDate" value="${model.startedDate}"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày kết thúc</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="dd/MM/yyyy"
-                                            class="form-control form-control-line" name="endedDate" value="${model.endedDate}"> </div>
+                                            class="form-control form-control-line" id="endedDate" name="endedDate" value="${model.endedDate}"> </div>
                                 </div>
                                 <div class="form-group">
 											<div class="col-sm-12">
@@ -84,10 +84,23 @@
             data[""+v.name+""] = v.value;
         });
         var id = $('#id').val();
+        var projectName = $('#projectName').val();
+        var startedDate = $('#startedDate').val();
+        var endedDate = $('#endedDate').val();
         if(id == ""){
-        	addProject(data);
+        	if(projectName === "" || startedDate === "" || endedDate === ""){
+        		alert("Few data field cannot be empty !");
+            	return;
+        	}else{
+        		addProject(data);
+        	}
         }else {
-        	updateProject(data);
+        	if(projectName === "" || startedDate === "" || endedDate === ""){
+        		alert("Few data field cannot be empty !");
+            	return;
+        	}else{
+        		updateProject(data);
+        	}
         }
 	});
 	

@@ -38,14 +38,14 @@
                                     <label class="col-md-12">Tên quyền</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="Tên quyền"
-                                            class="form-control form-control-line" name="name" value="${model.name}"/>
+                                            class="form-control form-control-line" id="name" name="name" value="${model.name}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Mô Tả</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="Mô Tả"
-                                            class="form-control form-control-line" name="description" value="${model.description}"/>
+                                            class="form-control form-control-line" id="description" name="description" value="${model.description}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -79,10 +79,22 @@
             data[""+v.name+""] = v.value;
         });
         var id = $('#id').val();
+        var name = $('#name').val();
+        var description = $('#description').val();
         if(id == ""){
-        	addRole(data);
+        	if(name === "" || description == ""){
+        		alert("Few data field cannot be empty !");
+            	return;
+        	}else{
+        		addRole(data);
+        	}
         }else {
-        	updateRole(data);
+        	if(name === "" || description === ""){
+        		alert("Few data field cannot be empty !");
+            	return;
+        	}else{
+        		updateRole(data);
+        	}
         }
 	});
 	

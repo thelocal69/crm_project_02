@@ -99,14 +99,14 @@
 											<div class="col-sm-12">
 												<select class="form-control form-control-line" id=roleId name="roleId">
 												<c:if test="${empty model.roleId}">
-												<option>--role--</option>
+												<option>--Chọn quyền--</option>
 													<c:forEach items="${roles}" var="item">
 														<option value="${item.id}">${item.name}</option>
 													</c:forEach>
 												</c:if>
 												
 												<c:if test="${not empty model.roleId}">
-													<option>Chọn quyền</option>
+													<option>--Chọn quyền--</option>
 													<c:forEach items="${roles}" var="item">
 														<option value="${item.id}" <c:if test="${item.id == model.roleId}">selected="selected"</c:if>>
 															${item.name}
@@ -152,10 +152,37 @@
             data[""+v.name+""] = v.value;
         });
         var id = $('#id').val();
+        var fullName = $('#fullName').val();
+        var email = $('#email').val();
+        var userName = $('#userName').val();
+        var pass = $('#pass').val();
+        var roleId = $('#roleId').val();
         if(id == ""){
-        	addUser(data);
+        	if(
+        			fullName === "" 
+        			|| email === "" 
+        			|| userName === "" 
+        			|| pass === "" 
+        			|| roleId === "--Chọn quyền--"
+        			){
+            	alert("Few data field cannot be empty !");
+            	return;
+            }else{
+            	addUser(data);
+            }
         }else {
-        	updateUser(data);
+        	if(
+        			fullName === "" 
+        			|| email === "" 
+        			|| userName === "" 
+        			|| pass === "" 
+        			|| roleId === "--Chọn quyền--"
+        			){
+        		alert("Few data field cannot be empty !");
+            	return;
+        	}else{
+        		updateUser(data);
+        	}
         }
 	});
 	
